@@ -1,5 +1,5 @@
 <p align="center">
-<img src="image/lasax.jpg" width="150" alt="Profile Picture">
+<img src="/image/lasax.jpg" width="150" alt="Profile Picture">
 </p>
 <p align="center"><strong>Tugas Besar/UAS</strong></p>
 <p align="center"><strong>Nama: Naufal Hilmy Munte</strong></p>
