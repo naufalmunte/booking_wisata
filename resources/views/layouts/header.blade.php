@@ -8,7 +8,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                   <li class="nav-item">
-                      <a class="nav-link @yield('navHome')" aria-current="page" href="">Home</a>
+                      <a class="nav-link @yield('navHome')" aria-current="page" href="wisata">Home</a>
                   </li>
                   @auth
                   <li class="nav-item">
@@ -21,19 +21,20 @@
                   </li>
                   @endauth
 
-                   {{-- <!-- Tombol Login / Logout -->
+                   <!-- Tombol Login / Logout -->
                     @auth
-                    <div class="d-flex align-items-center text-white me-2">
-                        Hello, {{ explode(' ', auth()->user()->name)[0] ?? auth()->user()->email }}
-                    </div>
-                    <form action="{{ route('logout') }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-outline-light">Logout</button>
-                    </form>
+                        <div class="d-flex align-items-center text-white me-2">
+                            Hello, {{ strtok(auth()->user()->nama, ' ') ?? auth()->user()->email }}
+                        </div>
+                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-light">Logout</button>
+                        </form>
                     @endauth
                     @guest
-                    <a href="{{ route('login') }}" class="btn btn-outline-light">Login</a>
-                    @endguest --}}
+                        <a href="{{ route('login') }}" class="btn btn-outline-light">Login</a>
+                    @endguest
+
 
               </ul>
 

@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\NaufalPengguna;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class NaufalPenggunaFactory extends Factory
 {
@@ -15,7 +16,7 @@ class NaufalPenggunaFactory extends Factory
         return [
             'nama' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => bcrypt('password'),
+            'password' => Hash::make('12345'),
             'role' => $this->faker->randomElement(['admin', 'user']),
         ];
     }
