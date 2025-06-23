@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\NaufalPaketWisata;
+
 
 class NaufalPaketWisataController extends Controller
 {
@@ -11,7 +13,8 @@ class NaufalPaketWisataController extends Controller
      */
     public function index()
     {
-        //
+        $paketWisata = NaufalPaketWisata::all();
+        return view('wisata.index', compact('paketWisata'));
     }
 
     /**
@@ -27,8 +30,26 @@ class NaufalPaketWisataController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nama_paket' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'harga_per_orang' => 'required|numeric',
+            'durasi_hari' => 'required|integer',
+            'lokasi' => 'required|string|max:255',
+            'gambar' => 'nullable|image|max:2048'
+        ]);
+
+        if ($request->hasFile('gambar')) {
+            // Simpan ke public/storage/gambar
+            $gambarPath = $request->file('gambar')->store('gambar', 'public');
+            $validated['gambar'] = $gambarPath;
+        }
+
+        \App\Models\NaufalPaketWisata::create($validated);
+
+        return redirect('/paket-wisata')->with('success', 'Paket wisata berhasil ditambahkan!');
     }
+
 
     /**
      * Display the specified resource.
