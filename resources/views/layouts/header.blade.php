@@ -1,51 +1,64 @@
 <header>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success">
-      <div class="container-fluid">
-          <a class="navbar-brand" href="#">Movie DB</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                      <a class="nav-link @yield('navHome')" aria-current="page" href="wisata">Home</a>
-                  </li>
-                  @auth
-                  <li class="nav-item">
-                      <a class="nav-link @yield('navInput')" href="">Input Wisata</a>
-                  </li>
-                  @endauth
-                  @auth
-                  <li class="nav-item">
-                      <a class="nav-link @yield('navAdmin')" href="">Data Wisata</a>
-                  </li>
-                  @endauth
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top shadow-sm" style="background-color: #00BFA6;">
+    <div class="container">
+      <!-- Logo dan Brand -->
+      <a class="navbar-brand d-flex align-items-center" href="/">
+        <img src="{{ asset('image/lasax3.png') }}" alt="Logo" width="50" height="30" class="me-2">
+        <span class="fw-bold fs-5 text-dark">Lasax Adventure</span>
+      </a>
 
-                   <!-- Tombol Login / Logout -->
-                    @auth
-                        <div class="d-flex align-items-center text-white me-2">
-                            Hello, {{ strtok(auth()->user()->nama, ' ') ?? auth()->user()->email }}
-                        </div>
-                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
-                            @csrf
-                            <button type="submit" class="btn btn-outline-light">Logout</button>
-                        </form>
-                    @endauth
-                    @guest
-                        <a href="{{ route('login') }}" class="btn btn-outline-light">Login</a>
-                    @endguest
+      <!-- Mobile Toggle -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
+      <!-- Menu -->
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          @auth
+            <li class="nav-item">
+              <a class="nav-link @yield('navHome')" href="/wisata"
+                 style="color: #000000;"
+                 onmouseover="this.style.color='#ffffff'" 
+                 onmouseout="this.style.color='#000000'">
+                 Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link @yield('navInput')" href="{{ route('wisata.create') }}"
+                 style="color: #000000;"
+                 onmouseover="this.style.color='#ffffff'" 
+                 onmouseout="this.style.color='#000000'">
+                 Input Wisata
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link @yield('navAdmin')" href="{{ route('admin.list.wisata') }}"
+                 style="color: #000000;"
+                 onmouseover="this.style.color='#ffffff'" 
+                 onmouseout="this.style.color='#000000'">
+                 Data Wisata
+              </a>
+            </li>
+          @endauth
+        </ul>
 
-              </ul>
-
-             <!-- Search Bar -->
-            <form class="d-flex me-3" action="" method="GET">
-                <input class="form-control me-2" type="search" name="query" placeholder="Search by title" aria-label="Search" value="{{ request()->query('query') }}">
-                <button class="btn btn-outline-light" type="submit">Search</button>
+        <!-- Login/Logout -->
+        <div class="d-flex align-items-center">
+          @auth
+            <span class="me-3 text-dark">Hello, {{ strtok(auth()->user()->nama, ' ') ?? auth()->user()->email }}</span>
+            <form action="{{ route('logout') }}" method="POST" class="d-inline">
+              @csrf
+              <button type="submit" class="btn btn-outline-dark btn-sm">Logout</button>
             </form>
+          @endauth
 
-           
-          </div>
+          @guest
+            <a href="{{ route('login') }}" class="btn btn-outline-dark btn-sm">Login</a>
+          @endguest
+        </div>
       </div>
+    </div>
   </nav>
 </header>

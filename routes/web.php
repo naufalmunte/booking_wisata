@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NaufalPaketWisataController;
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\RoleAdmin;
 
 
 Route::get('/', function () {
@@ -11,7 +12,15 @@ Route::get('/', function () {
 
 Route::get('/wisata', [NaufalPaketWisataController::class, 'index']);
 
-
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.proses');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/wisata/create', [NaufalPaketWisataController::class, 'create'])->name('wisata.create')->middleware('auth', RoleAdmin::class);
+Route::post('/wisata', [NaufalPaketWisataController::class, 'store'])->name('wisata.store')->middleware('auth', RoleAdmin::class);
+Route::get('/admin/wisata/{id}/edit', [NaufalPaketWisataController::class, 'edit'])->name('admin.wisata.edit')->middleware('auth', RoleAdmin::class);
+Route::put('/admin/wisata/{id}', [NaufalPaketWisataController::class, 'update'])->name('admin.wisata.update')->middleware('auth', RoleAdmin::class);
+Route::delete('/admin/wisata/{id}', [NaufalPaketWisataController::class, 'destroy'])->name('admin.wisata.destroy')->middleware('auth', RoleAdmin::class);
+
+
+Route::get('/admin/listwisata', [NaufalPaketWisataController::class, 'showList'])->name('admin.list.wisata');

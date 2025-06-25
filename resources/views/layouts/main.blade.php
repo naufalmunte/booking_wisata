@@ -29,7 +29,7 @@
 
     
     <main class="flex-shrink-0">
-        <div class="container">
+        <main class="p-0 m-0 w-100">
             @yield('container')
         </div>
     </main>
