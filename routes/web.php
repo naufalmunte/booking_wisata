@@ -10,7 +10,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/wisata', [NaufalPaketWisataController::class, 'index']);
+Route::get('/wisata', [NaufalPaketWisataController::class, 'index'])->name('wisata.index');
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login'])->name('login.proses');
@@ -18,6 +18,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/wisata/create', [NaufalPaketWisataController::class, 'create'])->name('wisata.create')->middleware('auth', RoleAdmin::class);
 Route::post('/wisata', [NaufalPaketWisataController::class, 'store'])->name('wisata.store')->middleware('auth', RoleAdmin::class);
+Route::get('/wisata/detail/{id}', [NaufalPaketWisataController::class, 'detail'])->name('wisata.detail');
 Route::get('/admin/wisata/{id}/edit', [NaufalPaketWisataController::class, 'edit'])->name('admin.wisata.edit')->middleware('auth', RoleAdmin::class);
 Route::put('/admin/wisata/{id}', [NaufalPaketWisataController::class, 'update'])->name('admin.wisata.update')->middleware('auth', RoleAdmin::class);
 Route::delete('/admin/wisata/{id}', [NaufalPaketWisataController::class, 'destroy'])->name('admin.wisata.destroy')->middleware('auth', RoleAdmin::class);

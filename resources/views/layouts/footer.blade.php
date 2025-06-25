@@ -18,7 +18,7 @@
     </style>
 </head>
 <body>
-    <footer class="bg-dark text-center text-white py-3">
+    <footer class="bg-dark text-center text-white py-3 mt-auto">
         <div class="container">
             Copyright &copy; <?php echo date('Y'); ?> by Naufal Munte
         </div>

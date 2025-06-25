@@ -78,7 +78,7 @@
                                             Rp {{ number_format($paket->harga_per_orang, 0, ',', '.') }} / orang
                                         </p>
                                         <div class="d-flex gap-2 mt-auto">
-                                            <a href="#" class="btn btn-outline-primary w-50">Lihat Detail</a>
+                                            <a href="{{ route('wisata.detail', $paket->id) }}" class="btn btn-info">Lihat Detail</a>
                                             <a href="#" class="btn btn-success w-50">Booking</a>
                                         </div>
                                     </div>

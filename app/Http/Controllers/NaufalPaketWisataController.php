@@ -118,4 +118,11 @@ class NaufalPaketWisataController extends Controller
         $paketWisatas = NaufalPaketWisata::all();
         return view('admin.list_wisata', compact('paketWisatas'));
     }
+
+    public function detail($id)
+    {
+        $paket = NaufalPaketWisata::findOrFail($id);
+        return view('wisata.detail_wisata', compact('paket'));
+    }
+
 }
