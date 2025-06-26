@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NaufalPaketWisataController;
+use App\Http\Controllers\NaufalPenggunaController;
+use App\Http\Controllers\NaufalBookingController;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\RoleAdmin;
 
@@ -22,6 +24,18 @@ Route::get('/wisata/detail/{id}', [NaufalPaketWisataController::class, 'detail']
 Route::get('/admin/wisata/{id}/edit', [NaufalPaketWisataController::class, 'edit'])->name('admin.wisata.edit')->middleware('auth', RoleAdmin::class);
 Route::put('/admin/wisata/{id}', [NaufalPaketWisataController::class, 'update'])->name('admin.wisata.update')->middleware('auth', RoleAdmin::class);
 Route::delete('/admin/wisata/{id}', [NaufalPaketWisataController::class, 'destroy'])->name('admin.wisata.destroy')->middleware('auth', RoleAdmin::class);
+Route::get('/admin/bookings', [NaufalBookingController::class, 'adminIndex'])->middleware(['auth', RoleAdmin::class])->name('admin.bookings.index');
+Route::post('/admin/bookings/{id}/status/{status}', [NaufalBookingController::class, 'updateStatus'])->name('booking.updateStatus');
+
 
 
 Route::get('/admin/listwisata', [NaufalPaketWisataController::class, 'showList'])->name('admin.list.wisata');
+
+Route::get('/daftar', [NaufalPenggunaController::class, 'showFormDaftar'])->name('pengguna.daftar.form');
+Route::post('/daftar', [NaufalPenggunaController::class, 'prosesDaftar'])->name('pengguna.daftar');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/booking/{paket_id}', [NaufalBookingController::class, 'create'])->name('booking.create');
+    Route::post('/booking', [NaufalBookingController::class, 'store'])->name('booking.store');
+    Route::get('/booking-saya', [NaufalBookingController::class, 'index'])->name('booking.user');
+});

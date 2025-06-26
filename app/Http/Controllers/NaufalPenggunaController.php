@@ -3,9 +3,32 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\NaufalPengguna;
 
 class NaufalPenggunaController extends Controller
 {
+    public function showFormDaftar()
+    {
+        return view('pengguna.daftar');
+    }
+
+    public function prosesDaftar(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'email' => 'required|email|unique:naufal_penggunas,email',
+            'password' => 'required|min:6|confirmed',
+        ]);
+
+        NaufalPengguna::create([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => 'user', // default
+        ]);
+
+        return redirect()->route('login')->with('success', 'Pendaftaran berhasil! Silakan login.');
+    }
     /**
      * Display a listing of the resource.
      */
@@ -61,4 +84,5 @@ class NaufalPenggunaController extends Controller
     {
         //
     }
+
 }

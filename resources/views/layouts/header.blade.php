@@ -16,7 +16,6 @@
       <!-- Menu -->
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
-          @auth
             <li class="nav-item">
               <a class="nav-link @yield('navHome')" href="/wisata"
                  style="color: #000000;"
@@ -25,6 +24,7 @@
                  Home
               </a>
             </li>
+            @auth
             <li class="nav-item">
               <a class="nav-link @yield('navInput')" href="{{ route('wisata.create') }}"
                  style="color: #000000;"
@@ -42,6 +42,18 @@
               </a>
             </li>
           @endauth
+          @auth
+          @if(auth()->user()->role === 'admin')
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('admin.bookings.index') }}">Daftar Booking User</a>
+            </li>
+          @else
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('booking.user') }}">Booking Saya</a>
+            </li>
+          @endif
+        @endauth
+
         </ul>
 
         <!-- Login/Logout -->
