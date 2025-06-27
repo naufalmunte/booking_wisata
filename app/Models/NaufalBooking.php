@@ -11,9 +11,14 @@ class NaufalBooking extends Model
     protected $table = 'naufal_bookings';
 
     protected $fillable = [
-        'pengguna_id', 'paket_id', 'tanggal_berangkat',
-        'jumlah_orang', 'status'
+        'paket_id',
+        'pengguna_id',
+        'jumlah_orang',
+        'tanggal_berangkat',
+        'guide_id',
+        'status'
     ];
+
 
     public function pengguna()
     {
@@ -29,5 +34,11 @@ class NaufalBooking extends Model
     {
         return $this->hasOne(NaufalReviewPelanggan::class, 'booking_id');
     }
+
+    public function guide()
+    {
+        return $this->belongsTo(NaufalGuide::class, 'guide_id');
+    }
+
 }
 

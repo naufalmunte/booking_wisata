@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\NaufalBooking;
 use App\Models\NaufalPaketWisata;
+use App\Models\NaufalGuide;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -13,9 +14,9 @@ class NaufalBookingController extends Controller
      */
     public function index()
     {
-          $userId = auth()->user()->id;
+           $userId = auth()->user()->id;
 
-    $bookings = \App\Models\NaufalBooking::with('paket')
+    $bookings = \App\Models\NaufalBooking::with(['paket', 'guide']) // tambahkan relasi guide jika diperlukan di view
         ->where('pengguna_id', $userId)
         ->orderBy('created_at', 'desc')
         ->get();
@@ -29,7 +30,8 @@ class NaufalBookingController extends Controller
     public function create($paket_id)
     {
         $paket = NaufalPaketWisata::findOrFail($paket_id);
-        return view('wisata.booking', compact('paket'));
+         $guides = NaufalGuide::all();
+        return view('wisata.booking', compact('paket', 'guides'));
     }
 
     /**
@@ -37,22 +39,21 @@ class NaufalBookingController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'paket_id' => 'required|exists:naufal_paket_wisatas,id',
-            'tanggal_berangkat' => 'required|date|after_or_equal:today',
             'jumlah_orang' => 'required|integer|min:1',
+            'tanggal_berangkat' => 'required|date|after_or_equal:today',
+            'guide_id' => 'required|exists:naufal_guides,id',
         ]);
 
-        NaufalBooking::create([
-            'pengguna_id' => Auth::user()->id,
-            'paket_id' => $request->paket_id,
-            'tanggal_berangkat' => $request->tanggal_berangkat,
-            'jumlah_orang' => $request->jumlah_orang,
-            'status' => 'pending', // default
-        ]);
+        $validated['pengguna_id'] = auth()->id();
+        $validated['status'] = 'pending';
 
-        return redirect('/wisata')->with('success', 'Booking berhasil dibuat!');
+        \App\Models\NaufalBooking::create($validated);
+
+        return redirect()->route('booking.user')->with('success', 'Booking berhasil dikirim!');
     }
+
 
     /**
      * Display the specified resource.

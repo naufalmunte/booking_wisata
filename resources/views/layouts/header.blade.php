@@ -54,6 +54,12 @@
           @endif
         @endauth
 
+        <li class="nav-item">
+          <a class="nav-link @yield('navGuides')" href="{{ route('admin.guides.index') }}">
+            Daftar Guide
+          </a>
+        </li>
+
         </ul>
 
         <!-- Login/Logout -->
