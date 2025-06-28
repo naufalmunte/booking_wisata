@@ -89,5 +89,11 @@ class NaufalGuideController extends Controller
 
         return redirect()->route('admin.guides.index')->with('success', 'Guide berhasil dihapus.');
     }
+
+    public function daftarGuide()
+    {
+        $guides = NaufalGuide::all();
+        return view('wisata.daftar_guide', compact('guides'));
+    }
 }
 

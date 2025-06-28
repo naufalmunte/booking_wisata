@@ -50,6 +50,13 @@
                                         @csrf
                                         <button type="submit" class="btn btn-sm btn-danger">Tolak</button>
                                     </form>
+
+                                @elseif ($booking->status === 'confirmed')
+                                    <form action="{{ route('booking.updateStatus', ['id' => $booking->id, 'status' => 'done']) }}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-sm btn-secondary">Selesai</button>
+                                    </form>
+
                                 @else
                                     <span class="text-muted">Sudah diproses</span>
                                 @endif

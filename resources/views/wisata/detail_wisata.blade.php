@@ -51,7 +51,7 @@
                         <li><strong>Harga per Orang:</strong> Rp{{ number_format($paket->harga_per_orang, 0, ',', '.') }}</li>
                     </ul>
 
-                    <a href="#" class="btn btn-success px-2 py-2">Booking Sekarang</a>
+                    <a href="{{ route('booking.create', ['paket_id' => $paket->id]) }}" class="btn btn-success px-2 py-2">Booking Sekarang</a>
                      <a href="{{ route('wisata.index') }}" class="btn btn-outline-secondary">
                         Back
                     </a>

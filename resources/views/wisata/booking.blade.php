@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('container')
-<div class="container py-4">
+<div class="container py-4 mt-5">
     <h2 class="mb-4">Booking: {{ $paket->nama_paket }}</h2>
 
     {{-- Tampilkan pesan error validasi jika ada --}}

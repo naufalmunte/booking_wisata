@@ -3,7 +3,7 @@
 @section('container')
 <div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
     <div class="col-md-5 col-lg-4">
-        <div class="card border-0 shadow-lg rounded-4 p-3">
+        <div class="card border-0 shadow-lg rounded-4 p-3 mb-3 mt-3">
             <div class="card-body px-4 py-4">
                 @if (session('success'))
                     <div class="alert alert-success text-center small mb-3">

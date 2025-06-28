@@ -5,6 +5,7 @@ use App\Http\Controllers\NaufalPaketWisataController;
 use App\Http\Controllers\NaufalPenggunaController;
 use App\Http\Controllers\NaufalBookingController;
 use App\Http\Controllers\NaufalGuideController;
+use App\Http\Controllers\NaufalReviewPelangganController;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\RoleAdmin;
 
@@ -47,3 +48,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/booking', [NaufalBookingController::class, 'store'])->name('booking.store');
     Route::get('/booking-saya', [NaufalBookingController::class, 'index'])->name('booking.user');
 });
+
+Route::get('/guide', [NaufalGuideController::class, 'daftarGuide'])->name('guide.list')->middleware('auth');
+
+Route::get('/review/{booking_id}', [NaufalReviewPelangganController::class, 'create'])->name('review.create')->middleware('auth');
+Route::post('/review', [NaufalReviewPelangganController::class, 'store'])->name('review.store')->middleware('auth');
+Route::get('/review', [NaufalReviewPelangganController::class, 'index'])->name('review.index');
+

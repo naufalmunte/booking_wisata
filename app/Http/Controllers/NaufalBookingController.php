@@ -97,7 +97,7 @@ class NaufalBookingController extends Controller
     {
         $booking = NaufalBooking::findOrFail($id);
 
-        if (!in_array($status, ['confirmed', 'batal'])) {
+        if (!in_array($status, ['confirmed', 'batal','done'])) {
             return back()->with('error', 'Status tidak valid.');
         }
 

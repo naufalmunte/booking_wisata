@@ -4,40 +4,39 @@
 
 <section class="min-vh-100 d-flex align-items-center justify-content-center position-relative overflow-hidden p-0">
 
-    {{-- Gambar latar belakang --}}
-    <img src="{{ asset('image/lg.jpg') }}" 
+    {{-- Gambar latar belakang full screen --}}
+    <img src="{{ asset('image/bg1.jpg') }}" 
          alt="Danau dan Gunung" 
-         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;" />
+         class="position-absolute top-0 start-0 w-100 h-100"
+         style="object-fit: cover; z-index: 0;" />
 
     {{-- Overlay transparan --}}
-    <div style="
-        position: absolute; 
-        top: 0; left: 0; right: 0; bottom: 0; 
-        background-color: rgba(255,255,255,0.6); 
-        z-index: 1;">
-    </div>
+    <div class="position-absolute top-0 start-0 w-100 h-100" 
+         style="background-color: rgba(255,255,255,0.4); z-index: 1;"></div>
 
-    {{-- Konten utama (teks) DI ATAS overlay --}}
+    {{-- Konten utama --}}
     <div class="container position-relative" style="z-index: 2;">
         <div class="row align-items-center">
-            
-            {{-- Kolom Logo --}}
+
+            {{-- Logo --}}
             <div class="col-md-6 d-flex justify-content-center mb-4 mb-md-0">
                 <img src="{{ asset('image/lasax3.png') }}" alt="Logo" class="img-fluid" style="max-width: 60%;">
             </div>
 
-            {{-- Kolom Teks --}}
+            {{-- Teks --}}
             <div class="col-md-6 text-dark px-4">
                 <h1 class="fw-bold fs-3 mb-2">Jelajahi Keindahan Sumatera Barat Bersama Kami!</h1>
-                <p>Lasax Adventure adalah penyedia jasa open trip terpercaya yang berfokus pada destinasi wisata alam, budaya, dan petualangan di Sumatera Barat. Kami hadir untuk memudahkan para pencinta traveling, backpacker, hingga keluarga yang ingin menjelajahi keindahan ranah Minang tanpa repot mengatur sendiri perjalanan.</p>
+                <p>Lasax Adventure adalah penyedia jasa open trip terpercaya yang berfokus pada destinasi wisata alam, budaya, dan petualangan di Sumatera Barat...</p>
+
                 <h2 class="fw-bold fs-5">Mengapa Pilih Lasax Adventure?</h2>
                 <ul class="list-unstyled mb-3">
                     <li>✔ Tim lokal berpengalaman & ramah</li>
                     <li>✔ Menawarkan paket wisata yang menarik dan harga terjangkau</li>
                     <li>✔ Dokumentasi profesional (foto/video)</li>
                 </ul>
-                <p>Mari jelajahi tanah Minang lebih dalam, kenali budaya, nikmati kuliner khas, dan abadikan momen-momen tak terlupakan bersama Lasax Adventure!</p>
-                
+
+                <p>Mari jelajahi tanah Minang lebih dalam...</p>
+
                 @auth
                     <h2 class="fw-bold fs-6 mt-4">Cek Langsung Paket Wisata di Bawah Ini!</h2>
                 @endauth
@@ -45,11 +44,11 @@
                 @guest
                 <div class="d-flex gap-2 mt-3">
                     <a href="{{ route('pengguna.daftar') }}"
-                        class="btn w-auto px-4 py-2 fw-semibold rounded-3"
-                        style="background-color: #00BFA6; color: black; font-size: 0.95rem; transition: 0.3s;"
-                        onmouseover="this.style.color='white'"
-                        onmouseout="this.style.color='black'">
-                        Daftar Akun
+                       class="btn w-auto px-4 py-2 fw-semibold rounded-3"
+                       style="background-color: #00BFA6; color: black; font-size: 0.95rem; transition: 0.3s;"
+                       onmouseover="this.style.color='white'"
+                       onmouseout="this.style.color='black'">
+                       Daftar Akun
                     </a>
                 </div>
                 @endguest
@@ -57,6 +56,7 @@
         </div>
     </div>
 </section>
+
 
 {{-- SECTION 2: Daftar Paket Wisata --}}
 <section id="daftarPaket" class="py-4" style="background-color: #f8f9fa;">

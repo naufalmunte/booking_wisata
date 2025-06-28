@@ -14,8 +14,8 @@
         <div class="alert alert-info">Belum ada guide yang terdaftar.</div>
     @else
         <div class="table-responsive">
-            <table class="table table-bordered align-middle">
-                <thead class="table-light">
+            <table class="table table-bordered table-hover small align-middle">
+                <thead class="table-dark">
                     <tr>
                         <th>No</th>
                         <th>Foto</th>
@@ -32,7 +32,7 @@
                             <td>{{ $index + 1 }}</td>
                             <td>
                                 @if($guide->gambar)
-                                    <img src="{{ asset('storage/' . $guide->gambar) }}" width="70" class="rounded">
+                                    <img src="{{ asset('storage/' . $guide->gambar) }}" width="70" height="40" class="rounded object-fit-cover">
                                 @else
                                     <span class="text-muted">-</span>
                                 @endif
@@ -43,7 +43,7 @@
                             <td>{{ $guide->alamat }}</td>
                             <td>
                                 <a href="{{ route('admin.guides.edit', $guide->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                                
+
                                 <form action="{{ route('admin.guides.destroy', $guide->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus guide ini?')">
                                     @csrf
                                     @method('DELETE')
