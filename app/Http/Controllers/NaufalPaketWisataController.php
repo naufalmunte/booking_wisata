@@ -11,11 +11,19 @@ class NaufalPaketWisataController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $paketwisata = NaufalPaketWisata::paginate(6);
+        $query = NaufalPaketWisata::query();
+
+        if ($request->has('cari') && $request->cari) {
+            $query->where('nama_paket', 'like', '%' . $request->cari . '%');
+        }
+
+        $paketwisata = $query->paginate(6)->withQueryString(); // withQueryString agar query tetap saat pagination
+
         return view('wisata.index', compact('paketwisata'));
     }
+
 
     /**
      * Show the form for creating a new resource.

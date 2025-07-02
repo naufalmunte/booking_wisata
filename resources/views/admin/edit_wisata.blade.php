@@ -59,11 +59,15 @@
                         </div>
                     @endif
                 </div>
-                <div class="text-end">
-                    <button type="submit" class="btn btn-success">
-                        Update
-                    </button>
-                </div>
+               <div class="text-end">
+    <button type="submit"
+            class="btn fw-semibold px-4 py-2 rounded-pill"
+            style="background-color: #00BFA6; color: black; font-size: 0.95rem; transition: 0.3s;"
+            onmouseover="this.style.color='white'"
+            onmouseout="this.style.color='black'">
+        Update
+    </button>
+</div>
             </form>
         </div>
     </div>

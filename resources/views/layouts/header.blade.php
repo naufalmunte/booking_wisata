@@ -1,8 +1,8 @@
 <header>
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top shadow-sm" style="background-color: #00BFA6;">
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top shadow-sm" style="background-color: #437057;">
     <div class="container">
       <!-- Logo dan Brand -->
-      <a class="navbar-brand d-flex align-items-center" href="/">
+      <a class="navbar-brand d-flex align-items-center" href="/wisata">
         <img src="{{ asset('image/lasax3.png') }}" alt="Logo" width="50" height="30" class="me-2">
         <span class="fw-bold fs-5 text-dark">Lasax Adventure</span>
       </a>

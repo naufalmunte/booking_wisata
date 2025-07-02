@@ -33,7 +33,7 @@
                         <span class="badge 
                             @if($booking->status == 'pending') bg-warning
                             @elseif($booking->status == 'confirmed') bg-success
-                            @elseif($booking->status == 'done') bg-success
+                            @elseif($booking->status == 'done') bg-danger
                             @else bg-danger @endif">
                             {{ ucfirst($booking->status) }}
                         </span>

@@ -2,112 +2,235 @@
 
 @section('container')
 
-<section class="min-vh-100 d-flex align-items-center justify-content-center position-relative overflow-hidden p-0">
+<section style="
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+">
+  <!-- Background Image -->
+  <img src="{{ asset('image/bg1.jpg') }}" 
+       style="
+         position: absolute;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100%;
+         object-fit: cover;
+         z-index: 0;
+         filter: brightness(0.8);
+         margin: 0;
+       " />
 
-    {{-- Gambar latar belakang full screen --}}
-    <img src="{{ asset('image/bg1.jpg') }}" 
-         alt="Danau dan Gunung" 
-         class="position-absolute top-0 start-0 w-100 h-100"
-         style="object-fit: cover; z-index: 0;" />
+  <!-- Overlay -->
+  <div style="
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.7) 0%, rgba(255,255,255,0.4) 100%);
+    z-index: 1;
+    margin: 0;
+  "></div>
 
-    {{-- Overlay transparan --}}
-    <div class="position-absolute top-0 start-0 w-100 h-100" 
-         style="background-color: rgba(255,255,255,0.4); z-index: 1;"></div>
-
-    {{-- Konten utama --}}
-    <div class="container position-relative" style="z-index: 2;">
-        <div class="row align-items-center">
-
-            {{-- Logo --}}
-            <div class="col-md-6 d-flex justify-content-center mb-4 mb-md-0">
-                <img src="{{ asset('image/lasax3.png') }}" alt="Logo" class="img-fluid" style="max-width: 60%;">
-            </div>
-
-            {{-- Teks --}}
-            <div class="col-md-6 text-dark px-4">
-                <h1 class="fw-bold fs-3 mb-2">Jelajahi Keindahan Sumatera Barat Bersama Kami!</h1>
-                <p>Lasax Adventure adalah penyedia jasa open trip terpercaya yang berfokus pada destinasi wisata alam, budaya, dan petualangan di Sumatera Barat...</p>
-
-                <h2 class="fw-bold fs-5">Mengapa Pilih Lasax Adventure?</h2>
-                <ul class="list-unstyled mb-3">
-                    <li>✔ Tim lokal berpengalaman & ramah</li>
-                    <li>✔ Menawarkan paket wisata yang menarik dan harga terjangkau</li>
-                    <li>✔ Dokumentasi profesional (foto/video)</li>
-                </ul>
-
-                <p>Mari jelajahi tanah Minang lebih dalam...</p>
-
-                @auth
-                    <h2 class="fw-bold fs-6 mt-4">Cek Langsung Paket Wisata di Bawah Ini!</h2>
-                @endauth
-
-                @guest
-                <div class="d-flex gap-2 mt-3">
-                    <a href="{{ route('pengguna.daftar') }}"
-                       class="btn w-auto px-4 py-2 fw-semibold rounded-3"
-                       style="background-color: #00BFA6; color: black; font-size: 0.95rem; transition: 0.3s;"
-                       onmouseover="this.style.color='white'"
-                       onmouseout="this.style.color='black'">
-                       Daftar Akun
-                    </a>
-                </div>
-                @endguest
-            </div>
-        </div>
+  <!-- Konten -->
+  <div style="
+    position: relative;
+    text-align: center;
+    color: #2d5a3d;
+    z-index: 2;
+    background-color: rgba(255,255,255,0.8);
+    padding: 2rem;
+    border-radius: 16px;
+    backdrop-filter: blur(4px);
+    max-width: 800px;
+    margin: 1rem;
+  ">
+    <!-- Logo -->
+    <div style="margin-bottom: 1.5rem;">
+      <img src="{{ asset('image/lasax3.png') }}" 
+           style="max-width: 200px;" 
+           alt="Logo Lasax" />
     </div>
+
+    <!-- Judul -->
+    <h1 style="
+      font-weight: bold;
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    ">
+      Jelajahi Keindahan Sumatera Barat Bersama Kami!
+    </h1>
+
+    <!-- Deskripsi -->
+    <p style="margin-bottom: 1rem; line-height: 1.6;">
+      Lasax Adventure adalah penyedia jasa open trip terpercaya...
+    </p>
+
+    <!-- Tombol (untuk guest) -->
+    @guest
+    <div style="display: flex; justify-content: center; gap: 0.5rem; margin-top: 1rem;">
+      <a href="{{ route('pengguna.daftar') }}"
+         style="
+           background-color: #5A827E;
+           color: black;
+           padding: 0.5rem 1.5rem;
+           font-weight: 600;
+           border-radius: 50px;
+           text-decoration: none;
+           font-size: 0.95rem;
+           transition: all 0.3s;
+         "
+         onmouseover="this.style.color='white'; this.style.transform='scale(1.05)'"
+         onmouseout="this.style.color='black'; this.style.transform='scale(1)'">
+         Daftar Akun
+      </a>
+    </div>
+    @endguest
+  </div>
 </section>
 
 
-{{-- SECTION 2: Daftar Paket Wisata --}}
-<section id="daftarPaket" class="py-4" style="background-color: #f8f9fa;">
-    <div class="container">
-        <div class="card shadow-sm rounded-4 border-0">
-            <div class="card-body px-4 py-3">
-                <h2 class="mb-4 text-center fw-bold">Daftar Paket Wisata</h2>
 
-                @if ($paketwisata->isEmpty())
-                    <div class="alert alert-info text-center">Tidak ada data paket wisata.</div>
-                @else
-                    <div class="row g-3">
-                        @foreach ($paketwisata as $paket)
-                            <div class="col-md-4">
-                                <div class="card h-100 shadow-sm border border-dark rounded-4">
-                                    @if ($paket->gambar)
-                                        <img src="{{ asset('storage/' . $paket->gambar) }}" 
-                                             class="card-img-top rounded-top-4" 
-                                             style="aspect-ratio: 16/9; object-fit: cover;" 
-                                             alt="Gambar {{ $paket->nama_paket }}">
-                                    @else
-                                        <img src="https://via.placeholder.com/400x200?text=No+Image" 
-                                             class="card-img-top rounded-top-4" 
-                                             style="aspect-ratio: 16/9; object-fit: cover;" 
-                                             alt="Tidak ada gambar">
-                                    @endif
+<section id="daftarPaket" style="
+  padding: 2rem 0;
+  background-color: #f8f9fa;
+">
+  <div style="max-width: 1200px; margin: 0 auto; padding: 0 1rem;">
+    <!-- Card Container -->
+    <div style="
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      padding: 1.5rem;
+    ">
+      <h2 style="
+        text-align: center;
+        font-weight: bold;
+        margin-bottom: 1.5rem;
+        color: #2d5a3d;
+      ">
+        Daftar Paket Wisata
+      </h2>
 
-                                    <div class="card-body d-flex flex-column">
-                                        <h5 class="card-title fw-bold">{{ $paket->nama_paket }}</h5>
-                                        <p class="card-text text-muted mb-1">{{ $paket->lokasi }}</p>
-                                        <p class="card-text text-muted mb-1">Durasi: {{ $paket->durasi_hari }} Hari</p>
-                                        <p class="card-text fw-bold text-success mb-3">
-                                            Rp {{ number_format($paket->harga_per_orang, 0, ',', '.') }} / orang
-                                        </p>
-                                        <div class="d-flex gap-2 mt-auto">
-                                            <a href="{{ route('wisata.detail', $paket->id) }}" class="btn btn-info">Lihat Detail</a>
-                                            <a href="{{ route('booking.create', ['paket_id' => $paket->id]) }}" class="btn btn-success w-50">Booking</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                @endif
+      <!-- Search Bar -->
+      <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+        <form action="{{ route('wisata.index') }}#daftarPaket" 
+              method="GET" 
+              style="display: flex; max-width: 400px; width: 100%;">
+          <input type="text" 
+                 name="cari" 
+                 placeholder="Cari paket wisata..." 
+                 value="{{ request('cari') }}"
+                 style="
+                   flex: 1;
+                   padding: 0.5rem 1rem;
+                   border: 1px solid #5A827E;
+                   border-radius: 50px 0 0 50px;
+                   outline: none;
+                 " />
+          <button type="submit"
+                  style="
+                    background-color: #5A827E;
+                    color: white;
+                    border: none;
+                    padding: 0 1rem;
+                    border-radius: 0 50px 50px 0;
+                    cursor: pointer;
+                  ">
+            <i class="bi bi-search"></i>
+          </button>
+        </form>
+      </div>
+
+      <!-- Card Item (Contoh 1) -->
+      <div style="
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1rem;
+      ">
+        @foreach ($paketwisata as $paket)
+        <div style="
+          background: white;
+          border: 1px solid #e0e0e0;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+          transition: all 0.3s;
+        " 
+        onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,0,0,0.1)'"
+        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 8px rgba(0,0,0,0.05)'">
+          <!-- Gambar -->
+          <img src="{{ $paket->gambar ? asset('storage/' . $paket->gambar) : 'https://via.placeholder.com/400x200?text=No+Image' }}" 
+               style="
+                 width: 100%;
+                 height: 200px;
+                 object-fit: cover;
+                 transition: transform 0.5s;
+               "
+               onmouseover="this.style.transform='scale(1.03)'"
+               onmouseout="this.style.transform='scale(1)'" />
+
+          <!-- Body Card -->
+          <div style="padding: 1.25rem; display: flex; flex-direction: column; height: calc(100% - 200px);">
+            <h3 style="font-weight: bold; margin-bottom: 0.5rem; color: #2d5a3d;">
+              {{ $paket->nama_paket }}
+            </h3>
+            <p style="color: #666; margin-bottom: 0.5rem; font-size: 0.9rem;">
+              {{ $paket->lokasi }}
+            </p>
+            <p style="color: #666; margin-bottom: 0.5rem; font-size: 0.9rem;">
+              Durasi: {{ $paket->durasi_hari }} Hari
+            </p>
+            <p style="font-weight: bold; color: #3a7d44; margin-bottom: 1rem;">
+              Rp {{ number_format($paket->harga_per_orang, 0, ',', '.') }} / orang
+            </p>
+
+            <!-- Tombol -->
+            <div style="display: flex; gap: 0.5rem; margin-top: auto;">
+              <a href="{{ route('wisata.detail', $paket->id) }}" 
+                 style="
+                   background-color: #5A827E;
+                   color: white;
+                   padding: 0.5rem 1rem;
+                   text-decoration: none;
+                   border-radius: 8px;
+                   text-align: center;
+                   flex: 1;
+                 ">
+                 Lihat Detail
+              </a>
+              <a href="{{ route('booking.create', ['paket_id' => $paket->id]) }}" 
+                 style="
+                   background-color: #3a7d44;
+                   color: white;
+                   padding: 0.5rem 1rem;
+                   text-decoration: none;
+                   border-radius: 8px;
+                   text-align: center;
+                   flex: 1;
+                 ">
+                 Booking
+              </a>
             </div>
-
-            <div class="d-flex justify-content-end mt-5 pe-2">
-                {{ $paketwisata->links('pagination::bootstrap-5') }}
-            </div>
+          </div>
         </div>
+        @endforeach
+      </div>
+
+      <!-- Pagination -->
+      <div style="display: flex; justify-content: flex-end; margin-top: 2rem;">
+        {{ $paketwisata->links('pagination::bootstrap-5') }}
+      </div>
     </div>
+  </div>
 </section>
 
 @endsection

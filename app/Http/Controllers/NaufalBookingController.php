@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\NaufalBooking;
 use App\Models\NaufalPaketWisata;
 use App\Models\NaufalGuide;
+use App\Mail\BookingConfirmedMail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -95,14 +97,19 @@ class NaufalBookingController extends Controller
 
     public function updateStatus($id, $status)
     {
-        $booking = NaufalBooking::findOrFail($id);
+        $booking = NaufalBooking::with('pengguna')->findOrFail($id);
 
-        if (!in_array($status, ['confirmed', 'batal','done'])) {
+        if (!in_array($status, ['confirmed', 'batal', 'done'])) {
             return back()->with('error', 'Status tidak valid.');
         }
 
         $booking->status = $status;
         $booking->save();
+
+        // Kirim email hanya jika status diubah menjadi confirmed
+        if ($status === 'confirmed' && $booking->pengguna && $booking->pengguna->email) {
+            Mail::to($booking->pengguna->email)->send(new BookingConfirmedMail($booking));
+        }
 
         return back()->with('success', 'Status booking berhasil diperbarui.');
     }

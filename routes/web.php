@@ -55,3 +55,11 @@ Route::get('/review/{booking_id}', [NaufalReviewPelangganController::class, 'cre
 Route::post('/review', [NaufalReviewPelangganController::class, 'store'])->name('review.store')->middleware('auth');
 Route::get('/review', [NaufalReviewPelangganController::class, 'index'])->name('review.index');
 
+
+Route::get('/tes-email', function () {
+    Mail::raw('Tes email dari Laravel', function ($m) {
+        $m->to('naufalhilmymunte@gmail.com')->subject('Tes Email Laravel');
+    });
+
+    return 'Email terkirim!';
+});

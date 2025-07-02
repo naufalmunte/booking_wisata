@@ -9,7 +9,7 @@ class NaufalReviewPelanggan extends Model
     protected $table = 'naufal_review_pelanggans';
 
     protected $fillable = [
-        'booking_id', 'rating', 'komentar'
+        'booking_id', 'rating', 'komentar','gambar'
     ];
 
     public function booking()
